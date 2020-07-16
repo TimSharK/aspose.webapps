@@ -12,7 +12,7 @@ The frontend then must use some sort of web sockets to listen on task completion
 
 # How to start
 1. Start Api (cd Api) project with visual studio or dotnet run
-2. Setup Front project (cd front)
+2. Setup Web project (cd Web)
 2.1 Run 'npm install' or 'yarn install'
 2.2 Adjust src/config.ts to specify your addresses to API
 2.3 Run 'npm run serve' or 'yarn serve' to start the project
