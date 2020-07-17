@@ -2,11 +2,13 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Net;
 using System.Threading.Tasks;
 using Domain;
 using FileStorage;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
@@ -21,7 +23,6 @@ namespace Api
     public class Startup
     {
         private readonly IWebHostEnvironment _env;
-        private readonly string _allowFrontOrigins = "allowFrontOrigins";
 
         public Startup(IConfiguration configuration, IWebHostEnvironment env)
         {
@@ -37,10 +38,10 @@ namespace Api
             // todo Change in production
             services.AddCors(options =>
             {
-                options.AddPolicy(_allowFrontOrigins,
+                options.AddDefaultPolicy(
                     builder =>
                     {
-                        builder.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader();
+                        builder.AllowAnyOrigin().WithMethods("POST", "GET").AllowAnyHeader();
                     });
             });
 
@@ -64,8 +65,8 @@ namespace Api
             app.UseHttpsRedirection();
 
             app.UseRouting();
-            
-            app.UseCors(_allowFrontOrigins);
+
+            app.UseCors();
 
             app.UseEndpoints(endpoints =>
             {

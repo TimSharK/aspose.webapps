@@ -23,6 +23,8 @@ namespace Api.Controllers
             {
                 var fileStream = _resultStorage.GetResult(id);
 
+                Response.Headers.Add("Access-Control-Allow-Origin", "*");
+
                 return new FileStreamResult(fileStream, GetContentType(fileName))
                 {
                     FileDownloadName = fileName

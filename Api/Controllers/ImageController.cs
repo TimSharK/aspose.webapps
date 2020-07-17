@@ -25,6 +25,8 @@ namespace Api.Controllers
             var id = await _imageConverter.ConvertAsync(bytes, data.Format);
             var fileName = GetOutputFileName(data.FileName, data.Format);
 
+            Response.Headers.Add("Access-Control-Allow-Origin", "*");
+
             return new JsonResult(new { id, fileName });
         }
 
