@@ -150,6 +150,8 @@ class ImageTool extends Vue {
           });
         })
         .catch((e) => {
+          this.busy = false;
+          alert("Failed to convert. Try again later")
           console.log("Error: " + e.message);
           console.log(e.response);
         });

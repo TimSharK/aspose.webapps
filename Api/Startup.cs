@@ -34,17 +34,15 @@ namespace Api
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            if (_env.IsDevelopment())
+            // todo Change in production
+            services.AddCors(options =>
             {
-                services.AddCors(options =>
-                {
-                    options.AddPolicy(_allowFrontOrigins,
-                        builder =>
-                        {
-                            builder.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader();
-                        });
-                });
-            }
+                options.AddPolicy(_allowFrontOrigins,
+                    builder =>
+                    {
+                        builder.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader();
+                    });
+            });
 
             services.AddControllers();
 
@@ -66,11 +64,8 @@ namespace Api
             app.UseHttpsRedirection();
 
             app.UseRouting();
-
-            if (_env.IsDevelopment())
-            {
-                app.UseCors(_allowFrontOrigins);
-            }
+            
+            app.UseCors(_allowFrontOrigins);
 
             app.UseEndpoints(endpoints =>
             {
